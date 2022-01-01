@@ -1,0 +1,22 @@
+{
+  "name": "MovieTickets",
+  "version": "1.0.0",
+  "description": "project clone web tix cinema",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": "https://github.com/thanhdat24/MovieTickets.git",
+  "author": "Dat",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.3.0"
+  }
+}
