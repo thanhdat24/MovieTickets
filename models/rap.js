@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ CumRap }) {
       // define association here
-      this.belongsTo(CumRap, { foreignKey: "maCR" });
+      this.belongsTo(CumRap, { foreignKey: "CumRap_id" });
     }
   }
   Rap.init(

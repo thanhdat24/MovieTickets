@@ -8,14 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      maHTR: {
+      HeThongRap_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "hethongraps",
           key: "id",
         },
         allowNull: false,
-
       },
       maCumRap: {
         type: Sequelize.STRING,

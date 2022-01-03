@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   createHeThongRap,
-  getAllHeThongRap,
+  getHeThongRap,
   deleteHeThongRap,
   createCumRap,
   getAllCumRap,
@@ -14,7 +14,7 @@ const {
 const quanLyRapRouter = express.Router();
 
 quanLyRapRouter.post("/LayThongTinHeThongRap", createHeThongRap);
-quanLyRapRouter.get("/LayThongTinHeThongRap", getAllHeThongRap);
+quanLyRapRouter.get("/LayThongTinHeThongRap", getHeThongRap);
 quanLyRapRouter.delete("/LayThongTinHeThongRap/:id", deleteHeThongRap);
 
 quanLyRapRouter.post("/LayThongTinCumRap", createCumRap);

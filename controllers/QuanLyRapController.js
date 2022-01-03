@@ -15,10 +15,39 @@ const createHeThongRap = async (req, res) => {
     res.status(500).send(error);
   }
 };
-const getAllHeThongRap = async (req, res) => {
+const getHeThongRap = async (req, res) => {
+  const { maHeThongRap } = req.query;
   try {
-    const heThongRapList = await HeThongRap.findAll();
-    res.status(200).send(heThongRapList);
+    if (maHeThongRap) {
+      const content = await HeThongRap.findAll({
+        attributes: {
+          exclude: ["id"],
+        },
+        where: {
+          maHeThongRap,
+        },
+      });
+      res.status(200).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    } else {
+      const content = await HeThongRap.findAll({
+        attributes: {
+          exclude: ["id"],
+        },
+      });
+      res.status(200).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    }
   } catch (error) {
     res.status(500).send(error);
   }
@@ -35,10 +64,10 @@ const deleteHeThongRap = async (req, res) => {
 
 // CumRap
 const createCumRap = async (req, res) => {
-  const { maHTR, maCumRap, tenCumRap, diaChi } = req.body;
+  const { HeThongRap_id, maCumRap, tenCumRap, diaChi } = req.body;
   try {
     const newCumRap = await CumRap.create({
-      maHTR,
+      HeThongRap_id,
       maCumRap,
       tenCumRap,
       diaChi,
@@ -51,8 +80,14 @@ const createCumRap = async (req, res) => {
 
 const getAllCumRap = async (req, res) => {
   try {
-    const cumRapList = await CumRap.findAll();
-    res.status(200).send(cumRapList);
+    const content = await CumRap.findAll();
+    res.status(200).send({
+      statusCode: 200,
+      message: "Xử lý thành công!",
+      content,
+      dateTime: new Date(),
+      messageConstants: null,
+    });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -69,11 +104,10 @@ const deleteCumRap = async (req, res) => {
 
 // Rap
 const createRap = async (req, res) => {
-  const { maCR, maRap, tenRap } = req.body;
-  console.log(" maCR, maRap, tenRap", maCR, maRap, tenRap);
+  const { CumRap_id, maRap, tenRap } = req.body;
   try {
     const newRap = await Rap.create({
-      maCR,
+      CumRap_id,
       maRap,
       tenRap,
     });
@@ -104,7 +138,6 @@ const getAllCumRapTheoHeThong = async (req, res) => {
         where: {
           maHeThongRap,
         },
-
         include: [
           {
             model: CumRap,
@@ -139,7 +172,7 @@ const getAllCumRapTheoHeThong = async (req, res) => {
 };
 module.exports = {
   createHeThongRap,
-  getAllHeThongRap,
+  getHeThongRap,
   deleteHeThongRap,
   createCumRap,
   getAllCumRap,
