@@ -77,7 +77,7 @@ const login = async (req, res) => {
 };
 
 const getAllDanhSachNguoiDung = async (req, res) => {
-  const content = await NguoiDung.findAll({});
+  const content = await NguoiDung.findAll();
   res.status(200).send({
     statusCode: 200,
     message: "Xử lý thành công!",
