@@ -4,7 +4,7 @@ const authenticate = (req, res, next) => {
   try {
     const decode = jwt.verify(token, "dat-24");
     if (decode) {
-      req.NguoiDung = decode;
+      req.nguoiDung = decode;
       return next();
     } else {
       res.status(401).send({

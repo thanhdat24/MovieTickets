@@ -1,10 +1,16 @@
 const { NguoiDung } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const gravatarUrl = require("gravatar");
 
 const register = async (req, res) => {
   const { taiKhoan, matKhau, email, soDt, hoTen } = req.body;
   try {
+    // tạo avatar default
+    const avatarUrl = gravatarUrl.url(email, {
+      protocol: "http",
+      s: "100",
+    });
     // tạo ra một chuõi ngẫu nhiên
     const salt = bcrypt.genSaltSync(10);
     // mã hoá salt + password
@@ -16,6 +22,7 @@ const register = async (req, res) => {
       email,
       soDt,
       hoTen,
+      avatar: avatarUrl,
     });
     res.status(201).send({
       statusCode: 200,
@@ -86,8 +93,22 @@ const getAllDanhSachNguoiDung = async (req, res) => {
     messageConstants: null,
   });
 };
+
+const uploadAvatar = async (req, res) => {
+  const { file } = req;
+  const { nguoiDung } = req;
+  const filePath = file.path.slice(7);
+  const urlImage = `http://localhost:7000/${filePath}`;
+  const userFound = await NguoiDung.findOne({
+    where: { taiKhoan: nguoiDung.taiKhoan },
+  });
+  userFound.avatar = urlImage;
+  await userFound.save();
+  res.send(userFound);
+};
 module.exports = {
   register,
   getAllDanhSachNguoiDung,
   login,
+  uploadAvatar,
 };

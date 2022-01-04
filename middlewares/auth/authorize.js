@@ -1,7 +1,7 @@
 const authorize=(arrLoaiNguoiDung)=>(req, res, next) => {
-  const { NguoiDung } = req;
+  const { nguoiDung } = req;
   if (
-    arrLoaiNguoiDung.findIndex((ele) => ele === NguoiDung.maLoaiNguoiDung) > -1
+    arrLoaiNguoiDung.findIndex((ele) => ele === nguoiDung.maLoaiNguoiDung) > -1
   ) {
     next();
   } else {
