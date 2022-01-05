@@ -18,8 +18,13 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       soDt: DataTypes.STRING,
       matKhau: DataTypes.STRING,
-      avatar:DataTypes.STRING,
-      maLoaiNguoiDung: DataTypes.STRING,
+      avatar: DataTypes.STRING,
+      maLoaiNguoiDung: {
+        type: DataTypes.STRING,
+        validate: {
+          isIn: [["Khách hàng", "Quản trị"]],
+        },
+      },
     },
     {
       sequelize,

@@ -94,6 +94,55 @@ const getAllDanhSachNguoiDung = async (req, res) => {
   });
 };
 
+const postThemNguoiDung = async (req, res) => {
+  const { taiKhoan, matKhau, email, soDt, maLoaiNguoiDung, hoTen } = req.body;
+  try {
+    // tạo avatar default
+    const avatarUrl = gravatarUrl.url(email, {
+      protocol: "http",
+      s: "100",
+    });
+    // tạo ra một chuõi ngẫu nhiên
+    const salt = bcrypt.genSaltSync(10);
+    // mã hoá salt + password
+    const hashPassword = bcrypt.hashSync(matKhau, salt);
+
+    const content = await NguoiDung.create({
+      taiKhoan,
+      matKhau: hashPassword,
+      email,
+      soDt,
+      hoTen,
+      maLoaiNguoiDung,
+      avatar: avatarUrl,
+    });
+    if (content) {
+      res.status(200).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    } else {
+      res.status(400).send({
+        statusCode: 400,
+        message: "Không tìm thấy tài nguyên!",
+        content: "Mã phim không hợp lệ!",
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Dữ liệu không hợp lệ!",
+      content: "Loại người dùng không hợp lệ!",
+      dateTime: new Date(),
+      messageConstants: null,
+    });
+  }
+};
 const uploadAvatar = async (req, res) => {
   const { file } = req;
   const { nguoiDung } = req;
@@ -106,9 +155,113 @@ const uploadAvatar = async (req, res) => {
   await userFound.save();
   res.send(userFound);
 };
+
+const deleteNguoiDung = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const content = await NguoiDung.destroy({ where: { id } });
+    if (content) {
+      res.status(200).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content: "Xóa thành công!",
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    } else {
+      res.status(400).send({
+        statusCode: 400,
+        message: "Không tìm thấy tài nguyên!",
+        content: "Tài khoản không hợp lệ!",
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Không tìm thấy tài nguyên!",
+    });
+  }
+};
+
+const editTaiKhoan = async (req, res) => {
+  const { nguoiDung } = req;
+  console.log("nguoiDung", nguoiDung);
+  const { taiKhoan, matKhau, email, soDt, maLoaiNguoiDung, hoTen } = req.body;
+  // tạo ra một chuõi ngẫu nhiên
+  const salt = bcrypt.genSaltSync(10);
+  // mã hoá salt + password
+  const hashPassword = bcrypt.hashSync(matKhau, salt);
+  try {
+    const content = await NguoiDung.findOne({
+      taiKhoan: nguoiDung.taiKhoan,
+    });
+    if (taiKhoan == nguoiDung.taiKhoan) {
+      content.taiKhoan = taiKhoan;
+      content.matKhau = hashPassword;
+      content.email = email;
+      content.soDt = soDt;
+      content.maLoaiNguoiDung = maLoaiNguoiDung;
+      content.hoTen = hoTen;
+      await content.save();
+      res.status(201).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    } else {
+      res.status(500).send({
+        statusCode: 500,
+        message: "Dữ liệu không hợp lệ!",
+        content: "Bạn không có quyền thay đổi tài khoản người khác!",
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Dữ liệu không hợp lệ!",
+      content: "Loại người dùng không hợp lệ!",
+      dateTime: new Date(),
+      messageConstants: null,
+    });
+  }
+};
+
+const getThongTinTaiKhoan = async (req, res) => {
+  const { taiKhoan } = req.body;
+  const content = await NguoiDung.findAll({ where: { taiKhoan } });
+  try {
+    res
+      .status(200)
+      .send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+  } catch (err) {
+    res.status(400).send({
+      statusCode: 400,
+      message: "Không tìm thấy tài nguyên!",
+      content: "Tài khoản không hợp lệ!",
+      dateTime: new Date(),
+      messageConstants: null,
+    });
+  }
+};
 module.exports = {
   register,
   getAllDanhSachNguoiDung,
   login,
   uploadAvatar,
+  postThemNguoiDung,
+  deleteNguoiDung,
+  editTaiKhoan,
+  getThongTinTaiKhoan,
 };
