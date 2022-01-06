@@ -1,4 +1,4 @@
-const { Phim } = require("../models");
+const { Phim, LichChieu } = require("../models");
 
 // HeThongRap
 const createPhim = async (req, res) => {
@@ -57,7 +57,7 @@ const deletePhim = async (req, res) => {
   }
 };
 
-const getDetailPhim = async (req, res) => {
+const getThongTinPhim = async (req, res) => {
   const { id } = req.params;
   try {
     const content = await Phim.findOne({ where: { id } });
@@ -79,13 +79,35 @@ const getDetailPhim = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).send({
+    res.status(400).send({
       statusCode: 500,
       message: "Không tìm thấy tài nguyên!",
-      dateTime: new Date(),
-      messageConstants: null,
     });
   }
 };
 
-module.exports = { createPhim, getAllDanhSachPhim, deletePhim, getDetailPhim };
+const createLichChieu = async (req, res) => {
+  const { giaVe, thoiLuong, ngayChieuGioChieu, idNguoiDung, idRap, idPhim } =
+    req.body;
+  try {
+    const newLichChieu = await LichChieu.create({
+      giaVe,
+      thoiLuong,
+      ngayChieuGioChieu,
+      idNguoiDung,
+      idRap,
+      idPhim,
+    });
+    res.status(201).send(newLichChieu);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+module.exports = {
+  createPhim,
+  getAllDanhSachPhim,
+  deletePhim,
+  getThongTinPhim,
+  createLichChieu,
+};

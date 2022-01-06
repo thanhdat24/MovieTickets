@@ -9,6 +9,8 @@ const {
   createRap,
   deleteRap,
   getAllCumRapTheoHeThong,
+  getThongTinLichChieuPhim,
+  getThongTinLichChieuHeThongRap,
 } = require("../controllers/QuanLyRapController");
 const { authenticate } = require("../middlewares/auth/authenticate");
 const { authorize } = require("../middlewares/auth/authorize");
@@ -32,6 +34,11 @@ quanLyRapRouter.post("/LayThongTinRap", createRap);
 quanLyRapRouter.delete("/LayThongTinRap/:id", deleteRap);
 
 quanLyRapRouter.get("/LayThongTinCumRapTheoHeThong", getAllCumRapTheoHeThong);
+quanLyRapRouter.get(
+  "/LayThongTinLichChieuHeThongRap",
+  getThongTinLichChieuHeThongRap
+);
+quanLyRapRouter.get("/LayThongTinLichChieuPhim", getThongTinLichChieuPhim);
 
 module.exports = {
   quanLyRapRouter,

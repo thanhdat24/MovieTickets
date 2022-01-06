@@ -3,14 +3,16 @@ const {
   createPhim,
   getAllDanhSachPhim,
   deletePhim,
-  getDetailPhim,
+  getThongTinPhim,
+  createLichChieu,
+
 } = require("../controllers/QuanLyPhimController");
 const { authenticate } = require("../middlewares/auth/authenticate");
 const { authorize } = require("../middlewares/auth/authorize");
 
 const quanLyPhimRouter = express.Router();
 
-quanLyPhimRouter.post("/LayDanhSachPhim", createPhim);
+quanLyPhimRouter.post("/ThemPhim", createPhim);
 quanLyPhimRouter.get("/LayDanhSachPhim", getAllDanhSachPhim);
 quanLyPhimRouter.delete(
   "/XoaPhim/:id",
@@ -18,8 +20,9 @@ quanLyPhimRouter.delete(
   authorize(["Quản trị"]),
   deletePhim
 );
+quanLyPhimRouter.get("/ThongTinPhim/:id", getThongTinPhim);
 
-quanLyPhimRouter.get("/LayDanhSachPhim/:id", getDetailPhim);
+quanLyPhimRouter.post("/ThemLichChieu", createLichChieu);
 
 module.exports = {
   quanLyPhimRouter,

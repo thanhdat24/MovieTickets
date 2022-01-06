@@ -1,4 +1,10 @@
-const { HeThongRap, sequelize, CumRap, Rap } = require("../models");
+const {
+  HeThongRap,
+  CumRap,
+  Rap,
+  Phim,
+  LichChieu,
+} = require("../models");
 
 // HeThongRap
 const createHeThongRap = async (req, res) => {
@@ -166,8 +172,189 @@ const getAllCumRapTheoHeThong = async (req, res) => {
       });
     }
   } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Không tìm thấy tài nguyên!",
+      error: error,
+    });
+  }
+};
+
+const getThongTinLichChieuHeThongRap = async (req, res) => {
+  const { maHeThongRap } = req.query;
+  try {
+    if (maHeThongRap) {
+      const content = await HeThongRap.findAll({
+        attributes: {
+          exclude: ["biDanh"],
+        },
+        where: {
+          maHeThongRap,
+        },
+        include: [
+          {
+            model: CumRap,
+            attributes: ["maCumRap", "tenCumRap", "diaChi"],
+            required: true,
+            include: [
+              {
+                model: Rap,
+                attributes: { exclude: ["id", "CumRap_id"] },
+                required: true,
+                include: [
+                  {
+                    model: LichChieu,
+                    as: Rap.tenRap,
+                    attributes: ["id", "ngayChieuGioChieu", "giaVe"],
+                    required: true,
+                    include: [
+                      {
+                        model: Phim,
+                        attributes: {
+                          exclude: [
+                            "biDanh",
+                            "moTa",
+                            "ngayKhoiChieu",
+                            "trailer",
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      res.status(200).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+      });
+    } else {
+      const content = await HeThongRap.findAll({
+        attributes: {
+          exclude: ["biDanh"],
+        },
+        include: [
+          {
+            model: CumRap,
+            attributes: ["maCumRap", "tenCumRap", "diaChi"],
+            required: true,
+            include: [
+              {
+                model: Rap,
+                attributes: { exclude: ["id", "CumRap_id"] },
+                required: true,
+                include: [
+                  {
+                    model: LichChieu,
+                    attributes: ["id", "ngayChieuGioChieu", "giaVe"],
+                    required: true,
+                    include: [
+                      {
+                        model: Phim,
+                        attributes: {
+                          exclude: [
+                            "biDanh",
+                            "moTa",
+                            "ngayKhoiChieu",
+                            "trailer",
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      res.status(200).send({
+        statusCode: 200,
+        message: "Xử lý thành công!",
+        content,
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    }
+  } catch (error) {
     console.log("error", error);
     res.status(500).send(error);
+  }
+};
+
+const getThongTinLichChieuPhim = async (req, res) => {
+  const { id } = req.query;
+  console.log("id", id);
+  try {
+    if (id) {
+      const content = await Phim.findOne({
+        where: { id },
+        include: [
+          {
+            model: LichChieu,
+            attributes: ["id", "ngayChieuGioChieu", "giaVe"],
+            include: [
+              {
+                model: Rap,
+                attributes: { exclude: ["id", "CumRap_id"] },
+                required: true,
+                include: [
+                  {
+                    model: CumRap,
+                    attributes: ["maCumRap", "tenCumRap", "diaChi"],
+                    required: true,
+                    include: [
+                      {
+                        model: HeThongRap,
+                        attributes: {
+                          exclude: ["biDanh"],
+                        },
+                        required: true,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      if (content) {
+        res.status(200).send({
+          statusCode: 200,
+          message: "Xử lý thành công!",
+          content,
+          dateTime: new Date(),
+          messageConstants: null,
+        });
+      } else {
+        res.status(400).send({
+          statusCode: 400,
+          message: "Không tìm thấy tài nguyên!",
+          content: "Mã phim không tồn tại!",
+          dateTime: new Date(),
+          messageConstants: null,
+        });
+      }
+    } else {
+      res.status(200).send({
+        statusCode: 400,
+        message: "Không tìm thấy tài nguyên!",
+        content: "Mã phim không tồn tại!",
+        dateTime: new Date(),
+        messageConstants: null,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Không tìm thấy tài nguyên!",
+      error: error,
+    });
   }
 };
 module.exports = {
@@ -180,4 +367,6 @@ module.exports = {
   createRap,
   getAllCumRapTheoHeThong,
   deleteRap,
+  getThongTinLichChieuPhim,
+  getThongTinLichChieuHeThongRap,
 };
