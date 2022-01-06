@@ -5,6 +5,7 @@ const {
   deletePhim,
   getThongTinPhim,
   createLichChieu,
+  updatePhim,
 
 } = require("../controllers/QuanLyPhimController");
 const { authenticate } = require("../middlewares/auth/authenticate");
@@ -19,6 +20,12 @@ quanLyPhimRouter.delete(
   authenticate,
   authorize(["Quản trị"]),
   deletePhim
+);
+quanLyPhimRouter.put(
+  "/CapNhatPhim/:id",
+  authenticate,
+  authorize(["Quản trị"]),
+  updatePhim
 );
 quanLyPhimRouter.get("/ThongTinPhim/:id", getThongTinPhim);
 

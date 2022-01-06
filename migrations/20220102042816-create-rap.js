@@ -17,9 +17,6 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      maRap: {
-        type: Sequelize.INTEGER,
-      },
       tenRap: {
         type: Sequelize.STRING,
       },

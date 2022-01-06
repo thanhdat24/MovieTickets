@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Rap.init(
     {
-      maRap: DataTypes.INTEGER,
       tenRap: DataTypes.STRING,
     },
     {

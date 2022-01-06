@@ -1,10 +1,4 @@
-const {
-  HeThongRap,
-  CumRap,
-  Rap,
-  Phim,
-  LichChieu,
-} = require("../models");
+const { HeThongRap, CumRap, Rap, Phim, LichChieu } = require("../models");
 
 // HeThongRap
 const createHeThongRap = async (req, res) => {
@@ -110,11 +104,10 @@ const deleteCumRap = async (req, res) => {
 
 // Rap
 const createRap = async (req, res) => {
-  const { CumRap_id, maRap, tenRap } = req.body;
+  const { CumRap_id, tenRap } = req.body;
   try {
     const newRap = await Rap.create({
       CumRap_id,
-      maRap,
       tenRap,
     });
     res.status(201).send(newRap);
@@ -151,7 +144,7 @@ const getAllCumRapTheoHeThong = async (req, res) => {
             required: true,
             include: {
               model: Rap,
-              attributes: ["maRap", "tenRap"],
+              attributes: ["id", "tenRap"],
               required: true,
             },
           },
@@ -199,7 +192,7 @@ const getThongTinLichChieuHeThongRap = async (req, res) => {
             include: [
               {
                 model: Rap,
-                attributes: { exclude: ["id", "CumRap_id"] },
+                attributes: { exclude: ["CumRap_id"] },
                 required: true,
                 include: [
                   {
@@ -245,7 +238,7 @@ const getThongTinLichChieuHeThongRap = async (req, res) => {
             include: [
               {
                 model: Rap,
-                attributes: { exclude: ["id", "CumRap_id"] },
+                attributes: { exclude: ["CumRap_id"] },
                 required: true,
                 include: [
                   {
@@ -300,7 +293,7 @@ const getThongTinLichChieuPhim = async (req, res) => {
             include: [
               {
                 model: Rap,
-                attributes: { exclude: ["id", "CumRap_id"] },
+                attributes: { exclude: ["CumRap_id"] },
                 required: true,
                 include: [
                   {

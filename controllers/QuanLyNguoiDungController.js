@@ -187,7 +187,6 @@ const deleteNguoiDung = async (req, res) => {
 
 const editTaiKhoan = async (req, res) => {
   const { nguoiDung } = req;
-  console.log("nguoiDung", nguoiDung);
   const { taiKhoan, matKhau, email, soDt, maLoaiNguoiDung, hoTen } = req.body;
   // tạo ra một chuõi ngẫu nhiên
   const salt = bcrypt.genSaltSync(10);
@@ -205,7 +204,7 @@ const editTaiKhoan = async (req, res) => {
       content.maLoaiNguoiDung = maLoaiNguoiDung;
       content.hoTen = hoTen;
       await content.save();
-      res.status(201).send({
+      res.status(200).send({
         statusCode: 200,
         message: "Xử lý thành công!",
         content,
