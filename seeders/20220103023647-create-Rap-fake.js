@@ -21,11 +21,6 @@ module.exports = {
         },
         {
           CumRap_id: 2,
-          maRap: 511,
-          tenRap: "Rạp 1",
-        },
-        {
-          CumRap_id: 2,
           maRap: 512,
           tenRap: "Rạp 2",
         },
@@ -38,16 +33,6 @@ module.exports = {
           CumRap_id: 1,
           maRap: 452,
           tenRap: "Rạp 2",
-        },
-        {
-          CumRap_id: 1,
-          maRap: 453,
-          tenRap: "Rạp 3",
-        },
-        {
-          CumRap_id: 1,
-          maRap: 453,
-          tenRap: "Rạp 3",
         },
         {
           CumRap_id: 1,
@@ -73,6 +58,11 @@ module.exports = {
           CumRap_id: 4,
           maRap: 521,
           tenRap: "Rạp 1",
+        },
+        {
+          CumRap_id: 4,
+          maRap: 522,
+          tenRap: "Rạp 2",
         },
         {
           CumRap_id: 5,

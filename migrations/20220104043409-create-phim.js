@@ -34,7 +34,7 @@ module.exports = {
       hot: {
         type: Sequelize.BOOLEAN,
       },
-      danhChieu: {
+      dangChieu: {
         type: Sequelize.BOOLEAN,
       },
       sapChieu: {
