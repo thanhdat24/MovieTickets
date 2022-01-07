@@ -15,47 +15,47 @@ module.exports = {
       "raps",
       [
         {
-          CumRap_id: 2,
+          idCumRap: 2,
           tenRap: "Rạp 1",
         },
         {
-          CumRap_id: 2,
+          idCumRap: 2,
           tenRap: "Rạp 2",
         },
         {
-          CumRap_id: 1,
+          idCumRap: 1,
           tenRap: "Rạp 1",
         },
         {
-          CumRap_id: 1,
+          idCumRap: 1,
           tenRap: "Rạp 2",
         },
         {
-          CumRap_id: 1,
+          idCumRap: 1,
           tenRap: "Rạp 3",
         },
         {
-          CumRap_id: 3,
+          idCumRap: 3,
           tenRap: "Rạp 1",
         },
         {
-          CumRap_id: 3,
+          idCumRap: 3,
           tenRap: "Rạp 2",
         },
         {
-          CumRap_id: 3,
+          idCumRap: 3,
           tenRap: "Rạp 3",
         },
         {
-          CumRap_id: 4,
+          idCumRap: 4,
           tenRap: "Rạp 1",
         },
         {
-          CumRap_id: 4,
+          idCumRap: 4,
           tenRap: "Rạp 2",
         },
         {
-          CumRap_id: 5,
+          idCumRap: 5,
           tenRap: "Rạp 1",
         },
       ],
