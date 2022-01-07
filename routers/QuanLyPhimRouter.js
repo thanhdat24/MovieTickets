@@ -29,7 +29,7 @@ quanLyPhimRouter.put(
 );
 quanLyPhimRouter.get("/ThongTinPhim/:id", getThongTinPhim);
 
-quanLyPhimRouter.post("/ThemLichChieu", createLichChieu);
+
 
 module.exports = {
   quanLyPhimRouter,

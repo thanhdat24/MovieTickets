@@ -1,4 +1,4 @@
-const { Phim, LichChieu } = require("../models");
+const { Phim } = require("../models");
 
 // HeThongRap
 const createPhim = async (req, res) => {
@@ -132,29 +132,12 @@ const getThongTinPhim = async (req, res) => {
   }
 };
 
-const createLichChieu = async (req, res) => {
-  const { giaVe, thoiLuong, ngayChieuGioChieu, idNguoiDung, idRap, idPhim } =
-    req.body;
-  try {
-    const newLichChieu = await LichChieu.create({
-      giaVe,
-      thoiLuong,
-      ngayChieuGioChieu,
-      idNguoiDung,
-      idRap,
-      idPhim,
-    });
-    res.status(201).send(newLichChieu);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+
 
 module.exports = {
   createPhim,
   getAllDanhSachPhim,
   deletePhim,
   getThongTinPhim,
-  createLichChieu,
   updatePhim,
 };

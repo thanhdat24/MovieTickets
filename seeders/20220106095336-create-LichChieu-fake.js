@@ -16,7 +16,6 @@ module.exports = {
       [
         {
           giaVe: 75000,
-          thoiLuong: 120,
           ngayChieuGioChieu: "2022-01-05T10:00:00",
           idNguoiDung: 2,
           idRap: 2,
@@ -24,7 +23,6 @@ module.exports = {
         },
         {
           giaVe: 75000,
-          thoiLuong: 120,
           ngayChieuGioChieu: "2022-01-05T10:00:00",
           idNguoiDung: 2,
           idRap: 5,
@@ -32,7 +30,6 @@ module.exports = {
         },
         {
           giaVe: 55000,
-          thoiLuong: 120,
           ngayChieuGioChieu: "2022-01-06T15:00:00",
           idNguoiDung: 1,
           idRap: 3,
@@ -40,7 +37,6 @@ module.exports = {
         },
         {
           giaVe: 55000,
-          thoiLuong: 120,
           ngayChieuGioChieu: "2022-01-06T21:00:00",
           idNguoiDung: 1,
           idRap: 6,

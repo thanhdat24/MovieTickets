@@ -13,6 +13,7 @@ module.exports = {
       },
       thoiLuong: {
         type: Sequelize.INTEGER,
+        defaultValue: 120,
       },
       ngayChieuGioChieu: {
         type: Sequelize.DATE,

@@ -46,6 +46,7 @@ const login = async (req, res) => {
     if (isAuth) {
       const accessToken = jwt.sign(
         {
+          id: nguoiDung.id,
           taiKhoan: nguoiDung.taiKhoan,
           maLoaiNguoiDung: nguoiDung.maLoaiNguoiDung,
         },
@@ -235,15 +236,13 @@ const getThongTinTaiKhoan = async (req, res) => {
   const { taiKhoan } = req.body;
   const content = await NguoiDung.findAll({ where: { taiKhoan } });
   try {
-    res
-      .status(200)
-      .send({
-        statusCode: 200,
-        message: "Xử lý thành công!",
-        content,
-        dateTime: new Date(),
-        messageConstants: null,
-      });
+    res.status(200).send({
+      statusCode: 200,
+      message: "Xử lý thành công!",
+      content,
+      dateTime: new Date(),
+      messageConstants: null,
+    });
   } catch (err) {
     res.status(400).send({
       statusCode: 400,
